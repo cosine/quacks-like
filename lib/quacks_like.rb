@@ -1,4 +1,29 @@
+#
+# Copyright (c) 2009, Michael H. Buselli
+# See LICENSE for details on permitted use.
+#
 
+#
+# QuacksLike is a module for RSpec to add matchers that test if an
+# object is fully duck-typed to pretend to be another class.  This kind
+# of thing is really only necessary when passing such an object as the
+# return value in an API where you don't know exactly how it will be
+# consumed, but it needs to "quack like an Array" or something.  It does
+# its job by checking every instance method in the class that the target
+# object needs to "quack like" and makes sure the target both responds
+# to that method name and that the arity of the method is appropriate.
+#
+# Usage (in RSpec files):
+#   require 'quacks_like'
+#
+#   it "should return an object that quacks like a Hash" do
+#     my_func.should quack_like_a(Hash)
+#   end
+#
+#   it "should return an object that does not quack like an Array" do
+#     my_func.should_not quack_like_an(Array)
+#   end
+#
 class QuacksLike
   def initialize (quack_class)
     @quack_class = quack_class
